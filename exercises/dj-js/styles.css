@@ -1,0 +1,16 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+div {
+    display: flex;
+    background-color: pink;
+    border: 2px solid black;
+    height: 200px;
+    width: 200px;
+    margin: 80px;
+    justify-content: center;    
+    align-items: center;
+
+}
