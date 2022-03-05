@@ -13,12 +13,14 @@ const messages = document.getElementsByClassName("message");
 messages[0].textContent = "You are awesome!";
 messages[1].textContent = "Thank you.";
 messages[2].textContent = "You are welcome.";
-messages[3].textContent = "You are great!"
+messages[3].textContent = "You are great!";
 
 const clearMessages = document.getElementById("clear-button");
+
 clearMessages.addEventListener("click", () => {
-    for (let i = 0; i < messages.length; i++) {
-        messages[i].textContent = "";
+    const div = document.querySelector(".messages");
+    while (div.firstChild) {
+        div.removeChild(div.firstChild)
     }
 });
 
