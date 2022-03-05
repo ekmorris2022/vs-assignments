@@ -61,7 +61,6 @@ send.addEventListener("submit", (e) => {
     };
 
     parent.appendChild(div);
-    document.getElementById("input").value = "";
 });
 
 
