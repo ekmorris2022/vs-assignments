@@ -40,7 +40,7 @@ ul.addEventListener("click", (event) => {
         const div = event.target.parentElement.querySelector("div");
         const input = document.createElement("input");
         input.setAttribute("name", "edit");
-        input.setAttribute("placeholder", div.textContent);
+        input.value = div.textContent;
         div.parentElement.replaceChild(input, div);
         const saveButton = document.createElement("button");
         saveButton.style.marginLeft = "2px";
