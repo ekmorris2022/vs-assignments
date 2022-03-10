@@ -17,6 +17,7 @@ const fizzBuzz = number => {
         if(i % 5 === 0) {
             if(result === "fizz") {
                 result += "buzz";
+                countFizz--;
                 countFizzBuzz++;
             } else {
                 result = "buzz";
