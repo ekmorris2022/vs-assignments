@@ -4,6 +4,7 @@ const playerName = readline.question("\nHalt, who dares to enter these troubled 
 const MAX_HERO_HP = 100;
 let gameOver = false;
 let escape = false;
+
 let weapon = {};
 const enemies = [];
 foundItems = [];
@@ -58,8 +59,12 @@ function walk() {
                                          {limit: ['f', 'r']});
 
     if(fightOrFlight === 'f') {
+        
+        
         let weapon = chooseWeapon();
-        while(hero.hp > 0 && enemy.hp > 0) { heroAttack(weapon, hero, enemy); };        
+        let heroMinDamage = weapon[0].damageMin;
+        let heroMaxDamage = weapon[0].damageMax;
+        while(hero.hp > 0 && enemy.hp > 0) { heroAttack(hero, enemy, heroMinDamage, heroMaxDamage) };        
     }
 
     if(fightOrFlight ==='r') {
@@ -96,11 +101,12 @@ function calculateDamage(min, max) {
     
 }
 
-function heroAttack(weapon, hero, enemy) {
-    enemy.hp -= calculateDamage(weapon[0].damageMin, weapon[0].damageMax);
+function heroAttack(hero, enemy, min, max) {
+    enemy.hp -= calculateDamage(min, max);
+    console.log(`\nThe ${enemy.type}'s Health Points has dropped to ${enemy.hp} from your attack. `)
 
     if(enemy.hp > 0) { 
-        enemyAttack(escape, hero, enemy);
+        enemyAttack(escape, hero, enemy, min, max);
     } else {
         getWinner(hero, enemy);
     }
@@ -114,8 +120,9 @@ function run(enemy) {
     return;
 }
 
-function enemyAttack(escape, hero, enemy) {
+function enemyAttack(escape, hero, enemy, heroMin, heroMax) {
     hero.hp -= calculateDamage(enemy.damageMin, enemy.damageMax);
+    console.log(`\nYour Health Points have dropped to ${hero.hp} from the ${enemy.type}'s attack. `)
 
     if(escape) {
         if(hero.hp < 1) {
@@ -126,7 +133,7 @@ function enemyAttack(escape, hero, enemy) {
     }
 
     if(hero.hp > 0) { 
-        heroAttack(weapon, hero, enemy);
+        heroAttack(hero, enemy, heroMin, heroMax);
     } else {
         getWinner(hero, enemy);
     }
@@ -141,17 +148,19 @@ function healHero(hero, enemy) {
             hero.hp += MAX_HERO_HP - hero.hp
         }
     }
+    console.log(`\nYou have received up to ${enemy.bonusHP} health points for defeating this ${enemy.type}.` )
 }
 
-function addItemToInventory(hero) {
-    hero.inventory.push(foundItems[Math.floor(Math.random() * foundItems.length)]);
+function addItemToInventory(hero, enemy) {
+    let newItem = foundItems[Math.floor(Math.random() * foundItems.length)];
+    hero.inventory.push(newItem);
+    console.log(`\nA ${newItem.type} has been added to your inventory for defeating the ${enemy.type}. `)
 }
 
 function getWinner(hero, enemy) {
     if (hero.hp > 0) {
         console.log(`\nYou have defeated the ${enemy.type}! Your reputation is well deserved.`);
-        console.log("\nYou have received a random item for your inventory.")
-        addItemToInventory(hero);
+        addItemToInventory(hero, enemy);
         healHero(hero, enemy);
     } else {
         console.log(`\nYou have been defeated by the ${enemy.type}. The rumors were not true at all.`);
