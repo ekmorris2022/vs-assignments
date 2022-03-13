@@ -1,14 +1,16 @@
 const readline = require("readline-sync");
-const playerName = readline.question("Halt, who dares to enter these troubled lands? Tell me your name: ");
+const playerName = readline.question("\nHalt, who dares to enter these troubled lands? Tell me your name: ");
 
+const MAX_HERO_HP = 100;
 let gameOver = false;
 let escape = false;
 let weapon = {};
 const enemies = [];
+foundItems = [];
 
 function Player(playerName) {
     this.name = playerName;
-    this.hp = 100;
+    this.hp = MAX_HERO_HP;
     this.inventory = [];
 }
 
@@ -19,11 +21,24 @@ function Weapon(type, range, min, max) {
     this.damageMax = max;
 }
 
-function Enemy(type, hp, min, max) {
+function Item(type, benefit, duration, hp) {
+    this.type = type;
+    this.benefit = benefit;
+    this.duration = duration;
+    this.hp = hp;
+}
+
+foundItems.push(new Item("healing potion", "heals", "lasts until removed by an attack", 25));
+foundItems.push(new Item("shield", "absorbs attack damage", "permanent", 15));
+foundItems.push(new Item("invisibility cloak", "allows enemies to pass by without seeing you",
+                         "lasts until removed by an attack", 0));
+
+function Enemy(type, hp, min, max, bonus) {
     this.type = type;
     this.hp = hp;
     this.damageMin = min;
     this.damageMax = max;
+    this.bonusHP = bonus
 } 
 
 function walk() {
@@ -33,13 +48,11 @@ function walk() {
         console.log("\nStill walking ...");
     }
 
-    enemies.push(new Enemy("bandit", 50, 5, 10));
-    enemies.push(new Enemy("wolf", 70, 10, 20));
-    enemies.push(new Enemy("dragon", 150, 20, 50));
+    enemies.push(new Enemy("bandit", 50, 5, 10, 5));
+    enemies.push(new Enemy("wolf", 70, 10, 20, 10));
+    enemies.push(new Enemy("dragon", 150, 20, 50, 25));
 
     let enemy = getRandomEnemy();
-
-    console.log(enemy);
 
     let fightOrFlight = readline.question(`\nA ${enemy.type} is coming! Enter: 'f' to fight or 'r' to run. `,
                                          {limit: ['f', 'r']});
@@ -79,11 +92,12 @@ function chooseWeapon() {
 }
 
 function calculateDamage(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1) + min);
+    
 }
 
 function heroAttack(weapon, hero, enemy) {
-    enemy.hp -= calculateDamage(weapon.damageMin, weapon.damageMax);
+    enemy.hp -= calculateDamage(weapon[0].damageMin, weapon[0].damageMax);
 
     if(enemy.hp > 0) { 
         enemyAttack(escape, hero, enemy);
@@ -101,13 +115,13 @@ function run(enemy) {
 }
 
 function enemyAttack(escape, hero, enemy) {
-    hero.hp = hero.hp - calculateDamage(enemy.damageMin, enemy.damageMax);
+    hero.hp -= calculateDamage(enemy.damageMin, enemy.damageMax);
 
     if(escape) {
         if(hero.hp < 1) {
             hero.hp = 1;
         }
-
+        escape = false;
         return console.log("\nWhew! That was close, but you escaped.");
     }
 
@@ -119,10 +133,26 @@ function enemyAttack(escape, hero, enemy) {
     return;
 }
 
+function healHero(hero, enemy) {
+    if(hero.hp < MAX_HERO_HP) {
+        if(MAX_HERO_HP - hero.hp > enemy.bonusHP) {
+            hero.hp += enemy.bonusHP;
+        } else {
+            hero.hp += MAX_HERO_HP - hero.hp
+        }
+    }
+}
+
+function addItemToInventory(hero) {
+    hero.inventory.push(foundItems[Math.floor(Math.random() * foundItems.length)]);
+}
+
 function getWinner(hero, enemy) {
     if (hero.hp > 0) {
         console.log(`\nYou have defeated the ${enemy.type}! Your reputation is well deserved.`);
-
+        console.log("\nYou have received a random item for your inventory.")
+        addItemToInventory(hero);
+        healHero(hero, enemy);
     } else {
         console.log(`\nYou have been defeated by the ${enemy.type}. The rumors were not true at all.`);
         endGame();
