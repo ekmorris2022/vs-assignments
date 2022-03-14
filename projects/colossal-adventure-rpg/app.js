@@ -3,7 +3,6 @@ const playerName = readline.question("\nHalt, who dares to enter these troubled 
 
 const MAX_HERO_HP = 100;
 let gameOver = false;
-let escape = false;
 
 let weapon = {};
 const enemies = [];
@@ -76,7 +75,6 @@ function walk() {
         console.log("\nI see the rumors were not true.");
         gameOver();
     }
-    return;
 }
 
 // The odds of being attacked are 1 in 4.
@@ -93,12 +91,11 @@ function chooseWeapon() {
     console.log("\nHere is your inventory of weapons: \n");
     getInventory();
     let choice = readline.question("\nType the name of the weapon you want to use: ");
-    return hero.inventory.filter(function(Weapon){return Weapon.type === choice.toLowerCase();} );
+    return hero.inventory.filter(function(Weapon){ return Weapon.type === choice.toLowerCase(); } );
 }
 
 function calculateDamage(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-    
 }
 
 function heroAttack(hero, enemy, min, max) {
@@ -106,38 +103,29 @@ function heroAttack(hero, enemy, min, max) {
     console.log(`\nThe ${enemy.type}'s Health Points has dropped to ${enemy.hp} from your attack. `)
 
     if(enemy.hp > 0) { 
-        enemyAttack(escape, hero, enemy, min, max);
+        enemyAttack(hero, enemy, min, max);
     } else {
         getWinner(hero, enemy);
     }
-    return;
 }
 
 function run(enemy) {
-    if(Math.random() >= 0.5) {escape = true;};
-
-    enemyAttack(escape, hero, enemy);
-    return;
+    if(Math.random() >= 0.5) { 
+        console.log("\nWhew! That was close, but you escaped.");
+    } else {
+        enemyAttack(hero, enemy, 0, 0);
+    }
 }
 
-function enemyAttack(escape, hero, enemy, heroMin, heroMax) {
+function enemyAttack(hero, enemy, heroMin, heroMax) {
     hero.hp -= calculateDamage(enemy.damageMin, enemy.damageMax);
     console.log(`\nYour Health Points have dropped to ${hero.hp} from the ${enemy.type}'s attack. `)
 
-    if(escape) {
-        if(hero.hp < 1) {
-            hero.hp = 1;
-        }
-        escape = false;
-        return console.log("\nWhew! That was close, but you escaped.");
-    }
-
-    if(hero.hp > 0) { 
+    if(hero.hp > 0 ) { 
         heroAttack(hero, enemy, heroMin, heroMax);
     } else {
         getWinner(hero, enemy);
     }
-    return;
 }
 
 function healHero(hero, enemy) {
@@ -166,7 +154,6 @@ function getWinner(hero, enemy) {
         console.log(`\nYou have been defeated by the ${enemy.type}. The rumors were not true at all.`);
         endGame();
     }
-    return;
 }
 
 function getInventory() {
@@ -177,13 +164,11 @@ function printStatus() {
     console.log(`Name: ${hero.name}, HP: ${hero.hp}`);
     console.log(`Inventory:`);
     getInventory();
-    return;
 }
 
 function endGame() {
     console.log("\nGame Over.");
     gameOver = true;
-    return;
 }
 
 const hero = new Player(playerName);
@@ -217,5 +202,3 @@ while(!gameOver) {
         endGame();
     } 
 }
-
-process.exit(1);
