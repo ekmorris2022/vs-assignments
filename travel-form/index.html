@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Airline</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <h1>Welcome to My Airline!</h1>
+
+    <form name="passengerForm">
+        <label for="firstName">First Name: </label>
+        <input type="text" name="firstName" class="text">
+        <br>
+        <label for="lastName">Last Name: </label>
+        <input type="text" name="lastName" class="text">
+        <br>
+        <label for="age">Age: </label>
+        <input type="number" name="age" class="text">
+        <br>
+        <label for="gender">Gender:</label>
+        <br>
+        Male: <input type="radio" name="gender" value="Male">
+        Female: <input type="radio" name="gender" value="Female">
+        <br>
+        <label for="destination">Select Destination: </label>
+        <br>
+        <select name="destination">
+            <option value="New York City">New York City</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Chicago">Chicago</option>
+        </select>
+        <br>
+        <label for="diet">Dietary Restrictions:</label>
+        <br>
+        <input type="checkbox" name="diet" value=" Vegitarian" id="vegitarian"> Vegitarian
+        <br>
+        <input type="checkbox" name="diet" value=" Kosher" id="kosher"> Kosher
+        <br>
+        <input type="checkbox" name="diet" value=" Lactose free" id="lactose-free"> Lactose free
+        <br>
+        <button type="submit" name="submit">Submit</button>
+
+    </form>
+    
+</body>
+</html>
