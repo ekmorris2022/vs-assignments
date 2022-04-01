@@ -1,0 +1,23 @@
+* {
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.add {
+    background-color: aquamarine;
+}
+
+.subtract {
+    background-color: plum;
+}
+
+.multiply {
+    background-color: dodgerblue;
+}
