@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mario's Pest Control</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <h1>Mario Pest Control</h1>
+
+    <form class="form-container" name="invoice">
+        <ul class="list-container">
+            <li class="baddie-container" name="goomba">
+                <img src="../images/goomba.png" alt="Goomba">
+                <label for=""></label>
+                <p>Price per goomba: <span><input type="number" id="goomba-price" value="5" readonly></span></p>
+                <label for="quantity">Number caught: </label>
+                <input type="number" id="goomba" name="quantity" value="0">
+            </li>
+            <li class="baddie-container" name="bobomb">
+                <img src="../images/bobomb.png" alt="Bob-omb">
+                <label for=""></label>
+                <p>Price per bob-omb: <span><input type="number" id="bobomb-price" value="7" readonly></span></p>
+                <label for="quantity">Number caught: </label>
+                <input type="number" id="bobomb" name="quantity" value="0">
+            </li>
+            <li class="baddie-container" name="cheepcheep">
+                <img src="../images/cheepcheep.png" alt="Cheep-cheep">
+                <label for=""></label>
+                <p>Price per cheep-cheep: <span><input type="number" id="cheepcheep-price" value="11" readonly></span></p>
+                <label for="quantity">Number caught: </label>
+                <input type="number"  id="cheepcheep"name="quantity" value="0">
+            </li>
+        </ul>
+        <br><br>
+        <button type="submit" id="submit" class="button">Total Price: </button>
+        
+    </form>        
+    
+    <footer>
+        <address>
+            <p>Email: <a href="mailto:mario@example.com">mario@example.com</a></p>
+            <p>Website: <a href="https://www.mario.com">www.mario.com</a></p>
+            <p>
+                Address: Mario Pest Control
+                         12546 S. Rodent Ave.
+                         Mousetown, CA 92223
+            </p>
+        </address>
+    </footer>
+    
+</body>
+</html>
