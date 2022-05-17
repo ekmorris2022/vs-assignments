@@ -1,0 +1,70 @@
+{
+    "appetizers": [
+        {
+            "name": "hot wings",
+            "ingredients": [
+                "chicken wings", "buffalo sauce", "ranch dip"
+            ],
+            "description": "Spicy wings with your choice of dip."
+        },
+        {
+            "name": "jalapeno poppers",
+            "ingredients": ["jalapeno", "cheese", "breading"],
+            "description": "Fried jalapenos stuffed with cheese and covered with light breading."
+        }
+    ],
+    "cold sandwiches": [
+        {
+            "name": "turkey sandwich",
+            "ingredients": ["Boar's Head sliced turkey", "Lettuce", "Tomato", "Cheese", "Mayonnaise", "5-Grain bread"],
+            "description": "Delicious turkey served on 5-Grain bread"
+        },
+        {
+            "name": "tuna sub",
+            "ingredients": ["tuna salad", "wheat bread", "spinach", "pepper jack", "chipotle" ],
+            "description": "Fresh tuna salad on wheat bread"
+        }
+    ],
+    "hot sandwiches": [
+        {
+            "name": "Shrimp PoBoy",
+            "ingredients": ["Shrimp", "Hoagie", "Lettuce"],
+            "description": "Shrimp on bun."
+        },
+        {
+            "name": "Philly Steak & Cheese",
+            "ingredients": ["Steak", "Cheese", "Bun"],
+            "description": "Delicious orignal steak sandwich"
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Apple Pie",
+            "ingredients": ["Apples", "Pie shell", "Cinnamon"],
+            "description": "Grandma's old-fashion recipe."
+        },
+        
+        {
+            "name": "Ice Cream",
+            "ingredients": ["Vanilla", "Chocolate", "Swirl"],
+            "description": "Rich soft-served ice cream."
+        }
+    ],
+    "drinks": [
+        {
+            "name": "Soda",
+            "ingredients": ["Coke", "Sprite"],
+            "description": "Cold drinks."
+        },
+        {
+            "name": "Tea",
+            "ingredients": ["Herbal", "Green"],
+            "description": "Hot or cold, delicious tea."
+        },
+        {
+            "name": "Beer",
+            "ingredients": ["Michelob", "Bud", "Bud Light"],
+            "description": "Ice cold refreshing beer."
+        }
+    ]
+}
